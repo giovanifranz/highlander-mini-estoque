@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { GetStaticPaths } from "next";
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 
 export const DynamicHome = dynamic(() => import("../containers/Home"), {
   loading: () => <p>Loading...</p>,
@@ -21,6 +21,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
       },
     ],
     fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  if (context.params !== undefined) {
+    if (typeof context.params.slug === "string") {
+      return {
+        props: {
+          slug: context.params.slug,
+        },
+      };
+    }
+  }
+  return {
+    props: {
+      slug: "/login",
+    },
   };
 };
 
