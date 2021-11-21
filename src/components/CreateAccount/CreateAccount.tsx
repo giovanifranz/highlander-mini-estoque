@@ -1,37 +1,32 @@
 import { useFormik } from "formik";
 import { Container } from "./styles";
 import { useAuth } from "../../hooks/useAuth";
-import { setAccountInDatabase } from "../../services/setDatabase";
+import { setAccountInDatabase } from "../../services/database";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
 
 export default function CreateAccount() {
   const { user, signOutGoogle } = useAuth();
-  const [confirmPsw, setConfirmPsw] = useState("");
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      inventoryName: "",
+      inventory: "",
       email: "",
-      password: "",
     },
     onSubmit: async (values) => {
       if (user !== undefined) {
         const { uid, displayName, photoURL } = user;
-        const inventoryId = uuidv4();
-        const data = {
-          uid,
-          displayName,
+        const account = {
+          providerID: uid,
+          name: displayName,
           photoURL,
-          inventoryId,
           ...values,
-        };        
-        await setAccountInDatabase(data);
+        };
+        const accountID = await setAccountInDatabase(account);
+        router.push(`/dashboard/${accountID}`);
       }
     },
-  }); 
-  
+  });
+
   async function HandleSignOutGoogle() {
     await signOutGoogle();
     router.push("/");
@@ -50,39 +45,19 @@ export default function CreateAccount() {
           required={true}
         />
         <input
-          type="password"
-          placeholder="Senha"
-          id="password"
-          name="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          required={true}
-        />
-        <input
-          type="password"
-          placeholder="Confirme a senha"
-          id="confirmPassword"
-          name="confirmPassword"
-          onChange={(e) => setConfirmPsw(e.target.value)}
-          value={confirmPsw}
-          required={true}
-        />
-        <input
           type="text"
           placeholder="Nome do estoque"
-          id="inventoryName"
-          name="inventoryName"
+          id="inventory"
+          name="inventory"
           onChange={formik.handleChange}
-          value={formik.values.inventoryName}
+          value={formik.values.inventory}
           required={true}
         />
         <button
           type="submit"
           disabled={
-            formik.values.email.trim() === "" ||
-            formik.values.password.trim() === "" ||
-            formik.values.inventoryName.trim() === "" ||
-            formik.values.password !== confirmPsw
+            formik.values.inventory.trim() === "" ||
+            formik.values.email.trim() === ""
           }
           className="button"
         >

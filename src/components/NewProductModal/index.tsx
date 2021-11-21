@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import { Container } from "./styles";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useFormik } from "formik";
-import { setProductsInDatabase } from "../../services/setDatabase";
+import { setProductsInDatabase } from "../../services/database";
 import { useAuth } from "../../hooks/useAuth";
 
 interface NewProductModalProps {

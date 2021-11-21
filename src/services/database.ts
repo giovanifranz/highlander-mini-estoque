@@ -1,13 +1,11 @@
 import axios from "axios";
 
 interface Account {
-  uid: string;
-  displayName: string;
+  providerID: string;
+  name: string;
   photoURL: string;
+  inventory: string;
   email: string;
-  password: string;
-  inventoryName: string;
-  inventoryId: string;
 }
 
 interface Products {
@@ -20,12 +18,14 @@ interface Products {
 }
 
 export async function setAccountInDatabase(account: Account) {
-  await axios({
+  const response = await axios({
     method: "post",
-    url: "/api/inventory/user",
+    url: "/api/account",
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({ account }),
   });
+
+  return response.data;
 }
 
 export async function setProductsInDatabase(products: Products) {
@@ -35,4 +35,13 @@ export async function setProductsInDatabase(products: Products) {
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({ products }),
   });
+}
+
+export async function getInventoryFromDatabase(id: string) {
+  const response = await axios({
+    method: "get",
+    url: `/api/inventory/${id}`,
+    responseType: "json",
+  });
+  return response.data;
 }
