@@ -8,13 +8,12 @@ interface Account {
   email: string;
 }
 
-interface Products {
+interface RegisterProduct {
+  accountID: string;
   sku: string;
-  category: string;
   productName: string;
   providerName: string;
   value: number;
-  uid: string;
 }
 
 export async function setAccountInDatabase(account: Account) {
@@ -23,25 +22,39 @@ export async function setAccountInDatabase(account: Account) {
     url: "/api/account",
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({ account }),
+    responseType: "json",
   });
 
   return response.data;
 }
 
-export async function setProductsInDatabase(products: Products) {
+export async function setProductsInDatabase({
+  accountID,
+  ...products
+}: RegisterProduct) {
   await axios({
     method: "post",
-    url: "/api/inventory/products",
+    url: `/api/products/${accountID}`,
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({ products }),
   });
 }
 
-export async function getInventoryFromDatabase(id: string) {
+export async function getAccountFromDatabase(id: string) {
   const response = await axios({
     method: "get",
-    url: `/api/inventory/${id}`,
+    url: `/api/account/${id}`,
     responseType: "json",
   });
   return response.data;
+}
+
+export async function getProductsFromDatabase(id: string) {
+  const response = await axios({
+    method: "get",
+    url: `/api/products/${id}`,
+    responseType: "json",
+  });
+  
+  return response.data;	
 }

@@ -3,7 +3,7 @@ import { Separator, HandleCreateAccountButton } from "./styles";
 import { useFormik } from "formik";
 import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/router";
-import { getInventoryFromDatabase } from "../../services/database";
+import { getAccountFromDatabase } from "../../services/database";
 
 export default function Login() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function Login() {
       id: "",
     },
     onSubmit: async (values) => {
-      const inventoryId = await getInventoryFromDatabase(values.id);
+      const inventoryId = await getAccountFromDatabase(values.id);
       if (inventoryId === "Inventory does not exists.") {
         alert("Inventário não encontrado");
       } else {

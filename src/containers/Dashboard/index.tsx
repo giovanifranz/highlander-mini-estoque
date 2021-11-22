@@ -4,10 +4,13 @@ import { ProductsTable } from "../../components/ProductsTable";
 import { useState } from "react";
 import { Header } from "../../components/Header";
 import { NewProductModal } from "../../components/NewProductModal";
+import Modal from "react-modal";
+
+Modal.setAppElement("#__next");
 
 export default function Dashboard() {
   const [isNewProductModalOpen, setIsNewProductModalOpen] = useState(false);
-
+  const [update, setUpdate] = useState(false);
   function handleOpenNewProductModal() {
     setIsNewProductModalOpen(true);
   }
@@ -16,10 +19,10 @@ export default function Dashboard() {
     setIsNewProductModalOpen(false);
   }
 
-  function handleUpdateTable() {
-    const saved = localStorage.getItem("product");
-    console.log(saved);
+  async function handleUpdateTable() {
+    setUpdate(!update);
   }
+
   return (
     <>
       <Header onOpenNewProductModal={handleOpenNewProductModal} />
@@ -30,7 +33,7 @@ export default function Dashboard() {
       />
       <Container>
         <Summary />
-        <ProductsTable />
+        <ProductsTable updateTable={update} onRequestUpdateTable={handleUpdateTable}/>
       </Container>
     </>
   );

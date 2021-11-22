@@ -4,6 +4,7 @@ import { RiCloseCircleFill } from "react-icons/ri";
 import { useFormik } from "formik";
 import { setProductsInDatabase } from "../../services/database";
 import { useAuth } from "../../hooks/useAuth";
+import { useRouter } from "next/router";
 
 interface NewProductModalProps {
   isOpen: boolean;
@@ -16,8 +17,8 @@ export function NewProductModal({
   onRequestClose,
   onRequestUpdateTable,
 }: NewProductModalProps) {
-  const { user } = useAuth();
-  const uid = user?.uid;
+  const user = useAuth();
+  const accountID = useRouter().query.id;
 
   const formik = useFormik({
     initialValues: {
@@ -26,13 +27,23 @@ export function NewProductModal({
       productName: "",
       providerName: "",
       value: 0,
+      qtd: 0,
     },
     onSubmit: async (values) => {
-      if (uid !== undefined) {
-        const data = { uid, ...values };
-        await setProductsInDatabase(data);
-        onRequestUpdateTable();
-        onRequestClose();
+      if (user) {
+        if (typeof accountID === "string") {
+          const data = {
+            accountID,
+            ...values,
+          };
+          await setProductsInDatabase(data);
+          onRequestUpdateTable();
+          onRequestClose();
+        } else {
+          throw new Error("Account ID does not exist");
+        }
+      } else {
+        alert("Você precisa estar logado para cadastrar um produto");
       }
     },
   });
@@ -54,44 +65,52 @@ export function NewProductModal({
       <Container onSubmit={formik.handleSubmit}>
         <h2>Cadastrar Produto</h2>
 
+        <p>Código do Produto</p>
         <input
-          placeholder="Código do Produto"
+          placeholder="SKU"
           id="sku"
           name="sku"
           onChange={formik.handleChange}
           value={formik.values.sku}
           required={true}
         />
+        <p>Nome do Produto</p>
         <input
-          placeholder="Categoria do Produto"
-          id="category"
-          name="category"
-          onChange={formik.handleChange}
-          value={formik.values.category}
-          required={true}
-        />
-        <input
-          placeholder="Nome do Produto"
+          placeholder="Produto"
           id="productName"
           name="productName"
           onChange={formik.handleChange}
           value={formik.values.productName}
           required={true}
         />
+        <p>Nome do Fornecedor</p>
         <input
-          placeholder="Nome do Fornecedor	"
+          placeholder="Fornecedor"
           id="providerName"
           name="providerName"
           onChange={formik.handleChange}
           value={formik.values.providerName}
           required={true}
         />
+        <p>Valor do Produto</p>
         <input
-          placeholder="Valor do Produto"
+          placeholder="0,00"
           id="value"
           name="value"
           onChange={formik.handleChange}
           value={formik.values.value}
+          type="number"
+          required={true}
+          min={0}
+          step="any"
+        />
+        <p>Quantidade</p>
+        <input
+          placeholder="Qtd"
+          id="qtd"
+          name="qtd"
+          onChange={formik.handleChange}
+          value={formik.values.qtd}
           type="number"
           required={true}
           min={0}
