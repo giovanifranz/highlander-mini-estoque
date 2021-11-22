@@ -62,13 +62,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function signOutGoogle() {
-    signOut(auth)
-      .then(() => {
-        console.log("saiu");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    await signOut(auth);
+    setUser({} as User); 
   }
 
   return (

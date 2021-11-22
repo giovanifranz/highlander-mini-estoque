@@ -4,13 +4,16 @@ import { ProductsTable } from "../../components/ProductsTable";
 import { Header } from "../../components/Header";
 import { DashboardProvider } from "../../providers/DashboardContext";
 
-export default function Dashboard() {
+interface DashboardProps {
+  id: string;
+}
+export default function Dashboard({ id }: DashboardProps) {
   return (
-    <DashboardProvider>
-      <Header/>
+    <DashboardProvider id={id}>
+      <Header />
       <Container>
         <Summary />
-        <ProductsTable/>
+        <ProductsTable />
       </Container>
     </DashboardProvider>
   );

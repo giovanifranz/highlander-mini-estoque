@@ -18,7 +18,7 @@ interface Products {
 
 export function ProductsTable() {
   const [products, setProducts] = useState<Array<Products>>([]);
-  const { accountID, setUpdateTable, updateTable } = useDashboard();
+  const { accountID, setUpdateTable, updateTable, setSummary } = useDashboard();
 
   useEffect(() => {
     (async () => {
@@ -26,7 +26,6 @@ export function ProductsTable() {
         if (typeof accountID === "string") {
           const data = await getProductsFromDatabase(accountID);
           if (data === "Products does not exists.") {
-            console.log("Products does not exists.");
           } else {
             setProducts(data);
           }
@@ -38,6 +37,26 @@ export function ProductsTable() {
       }
     })();
   }, [accountID, updateTable, setUpdateTable]);
+
+  useEffect(() => {
+    if (products !== undefined && products.length > 0) {
+      const qtdProducts = products.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.qtd,
+        0
+      );
+      const totalValueProducts = products.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.value,
+        0
+      );
+      const ticketAverage = totalValueProducts / qtdProducts;
+
+      setSummary({
+        qtdProducts,
+        totalValueProducts,
+        ticketAverage,
+      });
+    }
+  }, [products, setSummary]);
 
   return (
     <Container>
@@ -60,7 +79,7 @@ export function ProductsTable() {
                   <td>{product.sku}</td>
                   <td>{product.productName}</td>
                   <td>{product.providerName}</td>
-                  <td>{product.value}</td>
+                  <td>{`R$${product.value.toFixed(2)}`}</td>
                   <td>{product.qtd}</td>
                 </tr>
               );

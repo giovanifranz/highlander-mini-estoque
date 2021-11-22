@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@next-auth/firebase-adapter": "0.0.2-canary.207",
+    "@sendgrid/mail": "^7.6.0",
     "axios": "^0.24.0",
     "firebase": "^9.5.0",
     "formik": "^2.2.9",

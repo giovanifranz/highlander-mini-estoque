@@ -1,10 +1,13 @@
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 
 export const DynamicHome = dynamic(() => import("../containers/Home"), {
   loading: () => <p>Loading...</p>,
 });
+
+interface HomeProps {
+  slug: string;
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -43,8 +46,8 @@ export const getStaticProps: GetStaticProps = async (
   };
 };
 
-export default function Home() {
-  const route = useRouter().query.slug;
+export default function Home({slug}: HomeProps) {
+  const route = slug;
 
   return (
     <>

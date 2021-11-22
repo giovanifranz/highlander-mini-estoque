@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { database } from "../../services/firebase";
 import { ref, set, get } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
+import { sendEmail } from "../../services/sendGrid";
 
 interface Account {
   providerID: string;
@@ -33,30 +34,39 @@ export default async function databaseAPI(
     },
   };
   if (request.method === "GET") {
-    if (params[0] === "account") {
-      const accountRef = await get(ref(database, `/account/${params[1]}`));
-      if (accountRef.exists()) {
-        return response.status(200).json(params[1]);
-      } else {
-        return response.status(200).json("Account does not exists.");
-      }
-    } else if (params[0] === "products") {
-      const productsRef = await get(
-        ref(database, `account/${params[1]}/products/`)
-      );
+    switch (params[0]) {
+      case "account":
+        const accountRef = await get(ref(database, `/account/${params[1]}`));
+        if (accountRef.exists()) {
+          return response.status(200).json(params[1]);
+        } else {
+          return response.status(200).json("Account does not exists.");
+        }
+      case "products":
+        const productsRef = await get(
+          ref(database, `account/${params[1]}/products/`)
+        );
 
-      if (productsRef.exists()) {
-        const products: Products = productsRef.val();
-        const data = Object.entries(products).map(([key, value]) => {
-          return {
-            id: key,
-            ...value,
-          };
-        });
-        return response.status(200).json(data);
-      } else {
-        return response.status(200).json("Products does not exists.");
-      }
+        if (productsRef.exists()) {
+          const products: Products = productsRef.val();
+          const data = Object.entries(products).map(([key, value]) => {
+            return {
+              id: key,
+              ...value,
+            };
+          });
+          return response.status(200).json(data);
+        } else {
+          return response.status(200).json("Products does not exists.");
+        }
+      case "provider":
+        const providerRef = await get(
+          ref(database, `/account/${params[1]}/providerID/`)
+        );
+        if (providerRef.exists()) {
+          const providerID = providerRef.val();
+          return response.status(200).json(providerID);
+        }
     }
   }
 
@@ -70,6 +80,7 @@ export default async function databaseAPI(
       };
       const accountRef = ref(database, "account/" + accountID);
       await set(accountRef, data as Account);
+      await sendEmail(accountID, data);
       return response.status(200).json(accountID);
     } else if (params[0] === "products") {
       const { products } = request.body;

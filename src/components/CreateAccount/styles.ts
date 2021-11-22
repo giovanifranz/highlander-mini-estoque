@@ -12,5 +12,9 @@ export const Container = style.div`
         a {
             color: var(--red-light);
         }
+
+        a:hover {
+            text-decoration: underline;
+        }
     }
 `;

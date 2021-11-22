@@ -40,10 +40,19 @@ export async function setProductsInDatabase({
   });
 }
 
-export async function getAccountFromDatabase(id: string) {
+export async function getAccountByIdFromDatabase(id: string) {
   const response = await axios({
     method: "get",
     url: `/api/account/${id}`,
+    responseType: "json",
+  });
+  return response.data;
+}
+
+export async function getProviderIdByAccountID(id: string) {
+  const response = await axios({
+    method: "get",
+    url: `/api/provider/${id}`,
     responseType: "json",
   });
   return response.data;
@@ -55,6 +64,6 @@ export async function getProductsFromDatabase(id: string) {
     url: `/api/products/${id}`,
     responseType: "json",
   });
-  
-  return response.data;	
+
+  return response.data;
 }
