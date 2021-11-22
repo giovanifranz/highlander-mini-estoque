@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { database } from "../../services/firebase";
 import { ref, set, get } from "firebase/database";
-import { v4 as uuidv4 } from "uuid";
 import { sendEmail } from "../../services/sendGrid";
+import { v4 as uuidv4 } from "uuid";
 
 interface Account {
   providerID: string;

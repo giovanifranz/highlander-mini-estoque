@@ -5,7 +5,6 @@ import { Container, Content } from "./styles";
 import { DynamicLogin } from "../../components/Login";
 import { DynamicCreateAccount } from "../../components/CreateAccount";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export default function Home() {
   const route = useRouter().query.slug;

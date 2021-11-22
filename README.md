@@ -23,6 +23,7 @@ npm run dev
 
 ### Falta Implementar
 
+- Implementar regras de leitura e escrita no firebase
 - Remoção de produtos
 - Autenticação dentro da API
 - Carregamento automático do estoque se préviamente Logado
