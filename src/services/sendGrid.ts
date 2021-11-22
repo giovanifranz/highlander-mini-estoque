@@ -20,7 +20,7 @@ export async function sendEmail(
       subject: `Parabéns ${name}, criou o estoque: ${inventory}`,
       html: `O código do seu estoque é: ${accountID}
       <br><img src=${qrCode} alt="qrCode"/><br> 
-      Lembre-se, para acessar seu dashboard é necessário estar préviamente Logado.`,
+      Lembre-se, para acessar seu dashboard é necessário estar previamente Logado.`,
     };
 
     await sgMail.send(msg).then(
