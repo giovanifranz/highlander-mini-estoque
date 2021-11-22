@@ -14,7 +14,6 @@ export function NewProductModal() {
   const formik = useFormik({
     initialValues: {
       sku: "",
-      category: "",
       productName: "",
       providerName: "",
       value: 0,
