@@ -27,5 +27,8 @@ npm run dev
 - Autenticação dentro da API
 - Carregamento automático do estoque se préviamente Logado
 - Carregamento automático do estoque caso já exista estoque registrado na conta google
-- Responsividade 
+- Responsividade
+- Implementar nova tela para login para acessar Dashboard via qrCode ou código
+- Melhorar layout da página de Dashboard 
+- Impelemtar novos pontos de login e logout no App
 

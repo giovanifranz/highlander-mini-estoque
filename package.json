@@ -8,7 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sendgrid/mail": "^7.6.0",
     "axios": "^0.24.0",
     "firebase": "^9.5.0",
     "formik": "^2.2.9",
@@ -21,6 +20,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@sendgrid/mail": "^7.6.0",
     "@types/uuid": "^8.3.3",
     "@types/node": "16.11.9",
     "@types/react": "17.0.35",
