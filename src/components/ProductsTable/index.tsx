@@ -1,12 +1,7 @@
 import { Container } from "./styles";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { getProductsFromDatabase } from "../../services/database";
-
-interface ProductsTableProps {
-  updateTable: boolean;
-  onRequestUpdateTable: () => void;
-}
+import { useDashboard } from "../../hooks/useDashboard";
 
 interface ProductsTable {
   products: Array<Products>;
@@ -21,28 +16,28 @@ interface Products {
   qtd: number;
 }
 
-export function ProductsTable({
-  updateTable,
-  onRequestUpdateTable,
-}: ProductsTableProps) {
-  const [products, setProducts] = useState<Array<Products>>();
-
-  const accountID = useRouter().query.id;
+export function ProductsTable() {
+  const [products, setProducts] = useState<Array<Products>>([]);
+  const { accountID, setUpdateTable, updateTable } = useDashboard();
 
   useEffect(() => {
     (async () => {
       if (!updateTable) {
         if (typeof accountID === "string") {
           const data = await getProductsFromDatabase(accountID);
-          setProducts(data);
+          if (data === "Products does not exists.") {
+            console.log("Products does not exists.");
+          } else {
+            setProducts(data);
+          }
         } else {
           throw new Error("Account ID does not exist");
         }
       } else {
-        onRequestUpdateTable();
+        setUpdateTable(false);
       }
     })();
-  }, [accountID, updateTable, onRequestUpdateTable]);
+  }, [accountID, updateTable, setUpdateTable]);
 
   return (
     <Container>
@@ -57,19 +52,19 @@ export function ProductsTable({
           </tr>
         </thead>
         <tbody>
-          {products && products.length > 0
-            ? products.map((product) => {
-                return (
-                  <tr key={product.id}>
-                    <td>{product.sku}</td>
-                    <td>{product.productName}</td>
-                    <td>{product.providerName}</td>
-                    <td>{product.value}</td>
-                    <td>{product.qtd}</td>
-                  </tr>
-                );
-              })
-            : null}
+          {products !== undefined &&
+            products.length > 0 &&
+            products.map((product) => {
+              return (
+                <tr key={product.id}>
+                  <td>{product.sku}</td>
+                  <td>{product.productName}</td>
+                  <td>{product.providerName}</td>
+                  <td>{product.value}</td>
+                  <td>{product.qtd}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </Container>

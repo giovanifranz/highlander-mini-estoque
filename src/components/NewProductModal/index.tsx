@@ -4,21 +4,12 @@ import { RiCloseCircleFill } from "react-icons/ri";
 import { useFormik } from "formik";
 import { setProductsInDatabase } from "../../services/database";
 import { useAuth } from "../../hooks/useAuth";
-import { useRouter } from "next/router";
+import { useDashboard } from "../../hooks/useDashboard";
 
-interface NewProductModalProps {
-  isOpen: boolean;
-  onRequestClose: () => void;
-  onRequestUpdateTable: () => void;
-}
-
-export function NewProductModal({
-  isOpen,
-  onRequestClose,
-  onRequestUpdateTable,
-}: NewProductModalProps) {
+export function NewProductModal() {
   const user = useAuth();
-  const accountID = useRouter().query.id;
+  const { setIsOpenModal, setUpdateTable, isOpenModal, accountID } =
+    useDashboard();
 
   const formik = useFormik({
     initialValues: {
@@ -37,8 +28,8 @@ export function NewProductModal({
             ...values,
           };
           await setProductsInDatabase(data);
-          onRequestUpdateTable();
-          onRequestClose();
+          setIsOpenModal(false);
+          setUpdateTable(true);
         } else {
           throw new Error("Account ID does not exist");
         }
@@ -50,14 +41,14 @@ export function NewProductModal({
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      isOpen={isOpenModal}
+      onRequestClose={() => setIsOpenModal(false)}
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
       <button
         type="button"
-        onClick={onRequestClose}
+        onClick={() => setIsOpenModal(false)}
         className="react-modal-close"
       >
         <RiCloseCircleFill />
