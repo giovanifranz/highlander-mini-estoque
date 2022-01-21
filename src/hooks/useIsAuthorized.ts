@@ -1,25 +1,25 @@
-import { getProviderIdByAccountID } from "../services/database";
-import { useEffect, useState } from "react";
-import { useAuth } from "./useAuth";
-import { useRouter } from "next/router";
+import { getProviderIdByAccountID } from '../services/database'
+import { useEffect, useState } from 'react'
+import { useAuth } from './useAuth'
+import { useRouter } from 'next/router'
 
 export function useIsAuthorized(id: string) {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const router = useRouter();
-  const { user } = useAuth();
+  const [isAuthorized, setIsAuthorized] = useState(false)
+  const router = useRouter()
+  const { user } = useAuth()
 
   useEffect(() => {
-    (async () => {
-      const providerID = await getProviderIdByAccountID(id);
+    ;(async () => {
+      const providerID = await getProviderIdByAccountID(id)
       if (user !== undefined) {
         if (providerID === user.uid) {
-          setIsAuthorized(true);
+          setIsAuthorized(true)
         } else {
-          setIsAuthorized(false);
+          setIsAuthorized(false)
         }
       }
-    })();
-  }, [id, router, user]);
+    })()
+  }, [id, router, user])
 
-  return isAuthorized;
+  return isAuthorized
 }

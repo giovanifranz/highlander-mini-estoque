@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 :root {
@@ -30,11 +30,11 @@ export const GlobalStyle = createGlobalStyle`
 
 html {
     @media (min-width: 1080px) {
-        font-size: 93.75%; 
+        font-size: 93.75%;
     }
 
     @media (min-width: 1080px) {
-        font-size: 87.5%; 
+        font-size: 87.5%;
     }
 }
 
@@ -126,4 +126,4 @@ button {
         cursor: not-allowed;
     }
 }
-`;
+`

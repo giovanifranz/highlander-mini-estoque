@@ -1,4 +1,4 @@
-import style from "styled-components";
+import style from 'styled-components'
 
 export const Container = style.div`
     h2 {
@@ -17,4 +17,4 @@ export const Container = style.div`
             text-decoration: underline;
         }
     }
-`;
+`

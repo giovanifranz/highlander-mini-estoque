@@ -12,6 +12,6 @@ module.exports = {
     NEXT_API_GOOGLE_QR_CODE_GENERATOR:
       process.env.NEXT_API_GOOGLE_QR_CODE_GENERATOR,
     NEXT_API_SENDGRID_API_KEY: process.env.NEXT_API_SENDGRID_API_KEY,
-    NEXT_PUBLIC_EMAIL: process.env.NEXT_PUBLIC_EMAIL,
-  },
-};
+    NEXT_PUBLIC_EMAIL: process.env.NEXT_PUBLIC_EMAIL
+  }
+}

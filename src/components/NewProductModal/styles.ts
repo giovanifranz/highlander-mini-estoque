@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.form`
   h2 {
@@ -10,7 +10,7 @@ export const Container = styled.form`
   p {
     margin: 0.8rem 0;
   }
-  
+
   input {
     width: 100%;
     padding: 0 1.5rem;
@@ -25,4 +25,4 @@ export const Container = styled.form`
       margin-top: 1rem;
     }
   }
-`;
+`

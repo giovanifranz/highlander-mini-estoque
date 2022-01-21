@@ -1,13 +1,13 @@
-import Image from "next/image";
-import logoImg from "../../assets/Logo-Highlander-RGB.svg";
-import illustrationImg from "../../assets/loginImage.svg";
-import { Container, Content } from "./styles";
-import { DynamicLogin } from "../../components/Login";
-import { DynamicCreateAccount } from "../../components/CreateAccount";
-import { useRouter } from "next/router";
+import Image from 'next/image'
+import logoImg from '../../assets/Logo-Highlander-RGB.svg'
+import illustrationImg from '../../assets/loginImage.svg'
+import { Container, Content } from './styles'
+import { DynamicLogin } from '../../components/Login'
+import { DynamicCreateAccount } from '../../components/CreateAccount'
+import { useRouter } from 'next/router'
 
 export default function Home() {
-  const route = useRouter().query.slug;
+  const route = useRouter().query.slug
 
   return (
     <Container>
@@ -27,10 +27,10 @@ export default function Home() {
             alt="Highlander Mini Estoque"
             layout="intrinsic"
           />
-          {route === "login" ? <DynamicLogin /> : null}
-          {route === "create-account" ? <DynamicCreateAccount /> : null}
+          {route === 'login' ? <DynamicLogin /> : null}
+          {route === 'create-account' ? <DynamicCreateAccount /> : null}
         </Content>
       </section>
     </Container>
-  );
+  )
 }

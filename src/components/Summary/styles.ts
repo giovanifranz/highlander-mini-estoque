@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   display: grid;
@@ -26,4 +26,4 @@ export const Container = styled.section`
       line-height: 3rem;
     }
   }
-`;
+`

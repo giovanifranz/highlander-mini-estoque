@@ -1,62 +1,61 @@
-import { Container } from "./styles";
-import { useEffect, useState } from "react";
-import { getProductsFromDatabase } from "../../services/database";
-import { useDashboard } from "../../hooks/useDashboard";
+import { Container } from './styles'
+import { useEffect, useState } from 'react'
+import { getProductsFromDatabase } from '../../services/database'
+import { useDashboard } from '../../hooks/useDashboard'
 
 interface ProductsTable {
-  products: Array<Products>;
+  products: Array<Products>
 }
 
 interface Products {
-  id: number;
-  sku: string;
-  productName: string;
-  providerName: string;
-  value: number;
-  qtd: number;
+  id: number
+  sku: string
+  productName: string
+  providerName: string
+  value: number
+  qtd: number
 }
 
 export function ProductsTable() {
-  const [products, setProducts] = useState<Array<Products>>([]);
-  const { accountID, setUpdateTable, updateTable, setSummary } = useDashboard();
+  const [products, setProducts] = useState<Array<Products>>([])
+  const { accountID, setUpdateTable, updateTable, setSummary } = useDashboard()
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (!updateTable) {
-        if (typeof accountID === "string") {
-          const data = await getProductsFromDatabase(accountID);
-          if (data === "Products does not exists.") {
-          } else {
-            setProducts(data);
+        if (typeof accountID === 'string') {
+          const data = await getProductsFromDatabase(accountID)
+          if (data === 'Products does not exists.') {
+            setProducts(data)
           }
         } else {
-          throw new Error("Account ID does not exist");
+          throw new Error('Account ID does not exist')
         }
       } else {
-        setUpdateTable(false);
+        setUpdateTable(false)
       }
-    })();
-  }, [accountID, updateTable, setUpdateTable]);
+    })()
+  }, [accountID, updateTable, setUpdateTable])
 
   useEffect(() => {
     if (products !== undefined && products.length > 0) {
       const qtdProducts = products.reduce(
         (previousValue, currentValue) => previousValue + currentValue.qtd,
         0
-      );
+      )
       const totalValueProducts = products.reduce(
         (previousValue, currentValue) => previousValue + currentValue.value,
         0
-      );
-      const ticketAverage = totalValueProducts / qtdProducts;
+      )
+      const ticketAverage = totalValueProducts / qtdProducts
 
       setSummary({
         qtdProducts,
         totalValueProducts,
-        ticketAverage,
-      });
+        ticketAverage
+      })
     }
-  }, [products, setSummary]);
+  }, [products, setSummary])
 
   return (
     <Container>
@@ -82,10 +81,10 @@ export function ProductsTable() {
                   <td>{`R$${product.value.toFixed(2)}`}</td>
                   <td>{product.qtd}</td>
                 </tr>
-              );
+              )
             })}
         </tbody>
       </table>
     </Container>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { SiDropbox } from "react-icons/si";
-import { FaDivide } from "react-icons/fa";
-import { ImPriceTag } from "react-icons/im";
-import { Container } from "./styles";
-import { useDashboard } from "../../hooks/useDashboard";
+import { SiDropbox } from 'react-icons/si'
+import { FaDivide } from 'react-icons/fa'
+import { ImPriceTag } from 'react-icons/im'
+import { Container } from './styles'
+import { useDashboard } from '../../hooks/useDashboard'
 
 export function Summary() {
-  const sizeIcon = 25;
-  const { summary } = useDashboard();
-  const { qtdProducts, ticketAverage, totalValueProducts } = summary;
+  const sizeIcon = 25
+  const { summary } = useDashboard()
+  const { qtdProducts, ticketAverage, totalValueProducts } = summary
 
   return (
     <Container>
@@ -35,5 +35,5 @@ export function Summary() {
         </strong>
       </div>
     </Container>
-  );
+  )
 }

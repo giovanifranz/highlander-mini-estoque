@@ -1,12 +1,12 @@
-import dynamic from "next/dynamic";
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
+import dynamic from 'next/dynamic'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 
-export const DynamicHome = dynamic(() => import("../containers/Home"), {
-  loading: () => <p>Loading...</p>,
-});
+export const DynamicHome = dynamic(() => import('../containers/Home'), {
+  loading: () => <p>Loading...</p>
+})
 
 interface HomeProps {
-  slug: string;
+  slug: string
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -14,44 +14,44 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [
       {
         params: {
-          slug: "login",
-        },
+          slug: 'login'
+        }
       },
       {
         params: {
-          slug: "create-account",
-        },
-      },
+          slug: 'create-account'
+        }
+      }
     ],
-    fallback: false,
-  };
-};
+    fallback: false
+  }
+}
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   if (context.params !== undefined) {
-    if (typeof context.params.slug === "string") {
+    if (typeof context.params.slug === 'string') {
       return {
         props: {
-          slug: context.params.slug,
-        },
-      };
+          slug: context.params.slug
+        }
+      }
     }
   }
   return {
     props: {
-      slug: "/login",
-    },
-  };
-};
+      slug: '/login'
+    }
+  }
+}
 
-export default function Home({slug}: HomeProps) {
-  const route = slug;
+export default function Home({ slug }: HomeProps) {
+  const route = slug
 
   return (
     <>
-      {route === "login" || route === "create-account" ? <DynamicHome /> : null}
+      {route === 'login' || route === 'create-account' ? <DynamicHome /> : null}
     </>
-  );
+  )
 }

@@ -1,29 +1,29 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const HandleCreateAccountButton = styled.div`
-    margin-top: 4rem;
-    height: 50px;
-    border: 0.5rem;
-    border-radius: 0.5rem;
-    background-color: var(--red);
-    color: var(--white);
+  margin-top: 4rem;
+  height: 50px;
+  border: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--red);
+  color: var(--white);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    cursor: pointer;
-    border: 0;
+  cursor: pointer;
+  border: 0;
 
-    #GoogleIcon {
-        margin-right: 1rem;
-    }
+  #GoogleIcon {
+    margin-right: 1rem;
+  }
 
-    transition: filter 0.2s;
-    &:hover {
-        filter: brightness(90%);
-    }
-`;
+  transition: filter 0.2s;
+  &:hover {
+    filter: brightness(90%);
+  }
+`
 
 export const Separator = styled.div`
   font-size: 0.8rem;
@@ -34,7 +34,7 @@ export const Separator = styled.div`
   align-items: center;
 
   &::before {
-    content: "";
+    content: '';
     flex: 1;
     height: 1px;
     background-color: var(--gray-dark);
@@ -42,10 +42,10 @@ export const Separator = styled.div`
   }
 
   &::after {
-    content: "";
+    content: '';
     flex: 1;
     height: 1px;
     background-color: var(--gray-dark);
     margin-left: 1rem;
   }
-`;
+`

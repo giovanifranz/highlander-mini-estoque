@@ -1,35 +1,35 @@
-import { useFormik } from "formik";
-import { Container } from "./styles";
-import { useAuth } from "../../hooks/useAuth";
-import { setAccountInDatabase } from "../../services/database";
-import { useRouter } from "next/router";
+import { useFormik } from 'formik'
+import { Container } from './styles'
+import { useAuth } from '../../hooks/useAuth'
+import { setAccountInDatabase } from '../../services/database'
+import { useRouter } from 'next/router'
 
 export default function CreateAccount() {
-  const { user, signOutGoogle } = useAuth();
-  const router = useRouter();
+  const { user, signOutGoogle } = useAuth()
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
-      inventory: "",
-      email: "",
+      inventory: '',
+      email: ''
     },
     onSubmit: async (values) => {
       if (user !== undefined) {
-        const { uid, displayName, photoURL } = user;
+        const { uid, displayName, photoURL } = user
         const account = {
           providerID: uid,
           name: displayName,
           photoURL,
-          ...values,
-        };
-        const accountID = await setAccountInDatabase(account);
-        router.push(`/dashboard/${accountID}`);
+          ...values
+        }
+        const accountID = await setAccountInDatabase(account)
+        router.push(`/dashboard/${accountID}`)
       }
-    },
-  });
+    }
+  })
 
   async function HandleSignOutGoogle() {
-    await signOutGoogle();
-    router.push("/");
+    await signOutGoogle()
+    router.push('/')
   }
   return (
     <Container>
@@ -56,8 +56,8 @@ export default function CreateAccount() {
         <button
           type="submit"
           disabled={
-            formik.values.inventory.trim() === "" ||
-            formik.values.email.trim() === ""
+            formik.values.inventory.trim() === '' ||
+            formik.values.email.trim() === ''
           }
           className="button"
         >
@@ -68,5 +68,5 @@ export default function CreateAccount() {
         Não quer criar estoque? <a onClick={HandleSignOutGoogle}>Clique Aqui</a>
       </p>
     </Container>
-  );
+  )
 }

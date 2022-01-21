@@ -5,9 +5,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint src --max-warnings 0",
+    "prepare": "husky install"
   },
   "dependencies": {
+    "@fontsource/roboto": "^4.5.1",
     "axios": "^0.24.0",
     "firebase": "^9.5.0",
     "formik": "^2.2.9",
@@ -21,13 +23,21 @@
   },
   "devDependencies": {
     "@sendgrid/mail": "^7.6.0",
-    "@types/uuid": "^8.3.3",
     "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-modal": "^3.13.1",
     "@types/styled-components": "^5.1.15",
-    "eslint": "7",
-    "eslint-config-next": "12.0.4",
+    "@types/uuid": "^8.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "husky": "^7.0.0",
+    "prettier": "2.5.1",
     "typescript": "4.5.2"
   }
 }

@@ -1,42 +1,42 @@
-import Modal from "react-modal";
-import { Container } from "./styles";
-import { RiCloseCircleFill } from "react-icons/ri";
-import { useFormik } from "formik";
-import { setProductsInDatabase } from "../../services/database";
-import { useAuth } from "../../hooks/useAuth";
-import { useDashboard } from "../../hooks/useDashboard";
+import Modal from 'react-modal'
+import { Container } from './styles'
+import { RiCloseCircleFill } from 'react-icons/ri'
+import { useFormik } from 'formik'
+import { setProductsInDatabase } from '../../services/database'
+import { useAuth } from '../../hooks/useAuth'
+import { useDashboard } from '../../hooks/useDashboard'
 
 export function NewProductModal() {
-  const user = useAuth();
+  const user = useAuth()
   const { setIsOpenModal, setUpdateTable, isOpenModal, accountID } =
-    useDashboard();
+    useDashboard()
 
   const formik = useFormik({
     initialValues: {
-      sku: "",
-      productName: "",
-      providerName: "",
+      sku: '',
+      productName: '',
+      providerName: '',
       value: 0,
-      qtd: 0,
+      qtd: 0
     },
     onSubmit: async (values) => {
       if (user) {
-        if (typeof accountID === "string") {
+        if (typeof accountID === 'string') {
           const data = {
             accountID,
-            ...values,
-          };
-          await setProductsInDatabase(data);
-          setIsOpenModal(false);
-          setUpdateTable(true);
+            ...values
+          }
+          await setProductsInDatabase(data)
+          setIsOpenModal(false)
+          setUpdateTable(true)
         } else {
-          throw new Error("Account ID does not exist");
+          throw new Error('Account ID does not exist')
         }
       } else {
-        alert("Você precisa estar logado para cadastrar um produto");
+        alert('Você precisa estar logado para cadastrar um produto')
       }
-    },
-  });
+    }
+  })
 
   return (
     <Modal
@@ -110,5 +110,5 @@ export function NewProductModal() {
         </button>
       </Container>
     </Modal>
-  );
+  )
 }

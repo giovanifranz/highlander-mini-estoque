@@ -1,30 +1,30 @@
-import { IoLogoGoogle } from "react-icons/io";
-import { Separator, HandleCreateAccountButton } from "./styles";
-import { useFormik } from "formik";
-import { useAuth } from "../../hooks/useAuth";
-import { useRouter } from "next/router";
-import { getAccountByIdFromDatabase } from "../../services/database";
+import { IoLogoGoogle } from 'react-icons/io'
+import { Separator, HandleCreateAccountButton } from './styles'
+import { useFormik } from 'formik'
+import { useAuth } from '../../hooks/useAuth'
+import { useRouter } from 'next/router'
+import { getAccountByIdFromDatabase } from '../../services/database'
 
 export default function Login() {
-  const router = useRouter();
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
-      id: "",
+      id: ''
     },
     onSubmit: async (values) => {
-      const inventoryId = await getAccountByIdFromDatabase(values.id);
-      if (inventoryId === "Inventory does not exists.") {
-        alert("Inventário não encontrado");
+      const inventoryId = await getAccountByIdFromDatabase(values.id)
+      if (inventoryId === 'Inventory does not exists.') {
+        alert('Inventário não encontrado')
       } else {
-        router.push(`/dashboard/${inventoryId}`);
+        router.push(`/dashboard/${inventoryId}`)
       }
-    },
-  });
+    }
+  })
 
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle } = useAuth()
   async function handleLoginWithGoogleAccount() {
-    await signInWithGoogle();
-    router.push("/create-account");
+    await signInWithGoogle()
+    router.push('/create-account')
   }
 
   return (
@@ -47,11 +47,11 @@ export default function Login() {
         <button
           type="submit"
           className="button"
-          disabled={formik.values.id.trim() === ""}
+          disabled={formik.values.id.trim() === ''}
         >
           Entrar no estoque
         </button>
       </form>
     </>
-  );
+  )
 }

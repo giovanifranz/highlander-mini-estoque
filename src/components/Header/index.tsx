@@ -1,8 +1,8 @@
-import { MdProductionQuantityLimits } from "react-icons/md";
-import { Container, Content } from "./styles";
-import { useDashboard } from "../../hooks/useDashboard";
+import { MdProductionQuantityLimits } from 'react-icons/md'
+import { Container, Content } from './styles'
+import { useDashboard } from '../../hooks/useDashboard'
 export function Header() {
-  const { setIsOpenModal } = useDashboard();
+  const { setIsOpenModal } = useDashboard()
 
   return (
     <Container>
@@ -13,5 +13,5 @@ export function Header() {
         </button>
       </Content>
     </Container>
-  );
+  )
 }

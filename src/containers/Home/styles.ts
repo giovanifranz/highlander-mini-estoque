@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.main`
   display: flex;
@@ -39,7 +39,7 @@ export const Container = styled.main`
     align-items: center;
     justify-content: center;
   }
-`;
+`
 
 export const Content = styled.div`
   display: flex;
@@ -65,8 +65,8 @@ export const Content = styled.div`
       font-weight: 500;
 
       & + input {
-      margin-top: 1rem;
-    }
+        margin-top: 1rem;
+      }
     }
 
     button {
@@ -78,4 +78,4 @@ export const Content = styled.div`
       width: 100%;
     }
   }
-`;
+`
